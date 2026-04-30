@@ -1,0 +1,16 @@
+local paths = {
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+	"data/entities/animals/.xml",
+}
