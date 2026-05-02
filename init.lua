@@ -22,6 +22,9 @@ local list = {
 	"data/entities/animals/boss_gate/gate_monster_d.xml",
 }
 
+dofile_once("data/scripts/perks/perk_list.lua")
+print("aaaaaaaaaaaaaaaa")
+print(#perk_list)
 
 local exists = 0
 local no_exists = 0
@@ -47,10 +50,9 @@ end
 
 local luacomp = nxml.new_element("LuaComponent", {
 	script_source_file = "mods/divine_right/files/enemy_perks.lua",
-	execute_every_n_frame = "-1",
 	execute_on_added = "1",
 	call_init_function = "1",
-	--remove_after_executed = "1",
+	remove_after_executed = "1",
 })
 
 for index, target in ipairs(list) do

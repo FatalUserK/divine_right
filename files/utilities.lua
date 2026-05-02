@@ -4,7 +4,7 @@
 ---@generic T : Weighted
 ---@param t T[]
 ---@return T
----Function for picking a random table entry on `weight` as weight
+---Function for picking a random table entry based on `weight` value on `t`.
 function RandomFromTable(t)
 	local total_weight = 0
 	for _, entry in ipairs(t) do

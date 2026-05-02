@@ -1,9 +1,26 @@
+---@class (exact) enemy_perk
+---@field id string Perk ID.
+---@field ui_name string In-game name.
+---@field description string In-game description.
+---@field icon string Path to 12x12 icon used in-world
+---@field progress_icon string? Path to 12x12 icon used in progress menu. If blank, mod will automatically add a red border to the perk.
+---@field condition bool|function? If set, condition must pass in order for the perk to be chosen. Function can be used here to additionally modify the perk itself, including probability
+---@field game_effect string? If set, will add a `GameEffectComponent` to the perk entity with `game_effect` as its ID.
+---@field load_entity string? If set, will load target entity as the base for the perk entity as a child to the perk owner.
+---@field func function? The function that's run when the perk is added.
+---@field func_remove function? The function that's run when the perk is removed.
+
+
+---@type enemy_perk[]
 local perks = {
 	{
 		id = "critical_hit",
+		ui_name = "",
+		description = "",
 		icon = "",
-		condition = false,
-		game_effect = nil,
+		progress_icon = nil,
+		condition = nil,
+		game_effect = nil, --load game effect
 		load_entity = nil,
 		func = function(entity_id, copies, x, y)
 		end,
@@ -13,6 +30,9 @@ local perks = {
 	{
 		id = "swapper",
 		icon = "",
+		ui_name = "",
+		description = "",
+		progress_icon = "", --
 		func = function(entity_id, copies, x, y)
 			EntityAddComponent2(entity_id, "LuaComponent", {
 				script_damage_received = "mods/divine_right/files/scripts/swapper.lua"
