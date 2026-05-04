@@ -2,7 +2,8 @@
 ---@field id string Perk ID.
 ---@field ui_name string In-game name.
 ---@field description string In-game description.
----@field icon string Path to 12x12 icon used in-world
+---@field icon string Path to 12x12 icon used in-world.
+---@field weight number? Default 10.
 ---@field progress_icon string? Path to 12x12 icon used in progress menu. If blank, mod will automatically add a red border to the perk.
 ---@field condition bool|function? If set, condition must pass in order for the perk to be chosen. Function can be used here to additionally modify the perk itself, including probability
 ---@field game_effect string? If set, will add a `GameEffectComponent` to the perk entity with `game_effect` as its ID.

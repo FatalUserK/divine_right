@@ -10,6 +10,10 @@ function EnemyApplyPerk(entity_id, x, y, perk)
 	end
 end
 
+local function PickRandomPerk()
+
+end
+
 function EnemyGrantRandomPerks(entity_id, x, y)
 	SetRandomSeed(entity_id - y, x)
 
