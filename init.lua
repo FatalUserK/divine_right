@@ -60,3 +60,12 @@ for index, target in ipairs(list) do
 		xml:add_child(luacomp)
 	end
 end
+
+
+local translations = ModTextFileGetContent("data/translations/common.csv")
+translations = translations .. "\n" .. ModTextFileGetContent("mods/divine_right/files/standard.csv") .. "\n"
+translations = translations:gsub("\r", ""):gsub("\n\n+", "\n")
+ModTextFileSetContent("data/translations/common.csv", translations)
+
+
+ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/divine_right/files/add_perks_to_progress.lua")

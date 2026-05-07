@@ -4,7 +4,6 @@
 ---@field description string In-game description.
 ---@field icon string Path to 12x12 icon used in-world.
 ---@field weight number? Default 10.
----@field progress_icon string? Path to 12x12 icon used in progress menu. If blank, mod will automatically add a red border to the perk.
 ---@field max_stacks number? Max number of times an enemy can roll this perk, infinite if nil.
 ---@field condition bool|function? If set, condition must pass in order for the perk to be chosen. Function can be used here to additionally modify the perk itself, including probability
 ---@field game_effect string? If set, will add a `GameEffectComponent` to the perk entity with `game_effect` as its ID.
@@ -20,10 +19,9 @@
 local perks = {
 	{
 		id = "critical_hit",
-		ui_name = "",
-		description = "",
+		ui_name = "$divine_right.crit_plus",
+		description = "$divine_right.crit_plus_desc",
 		icon = "",
-		progress_icon = nil,
 		max_stacks = 3,
 		condition = nil,
 		game_effect = nil, --load game effect
@@ -36,9 +34,8 @@ local perks = {
 	{
 		id = "swapper",
 		icon = "",
-		ui_name = "",
-		description = "",
-		progress_icon = "",
+		ui_name = "Swapper",
+		description = "When damaged, swaps places with the attacker.",
 		max_stacks = 1,
 		func = function(self, entity_id, copies, x, y)
 			EntityAddComponent2(entity_id, "LuaComponent", {
@@ -57,17 +54,11 @@ local perks = {
 }
 
 
-
 do_mod_appends("mods/divine_right/files/enemy_perks_list.lua")
-for index, perk in ipairs(perks) do
+for _,perk in ipairs(perks) do
 	perk.weight = perk.weight or 10
 	if not ModDoesFileExist(perk.icon or "") then
-		perk.icon = "mods/divine_right/files/perk_bg.png"
-		if not ModDoesFileExist(perk.progress_icon or "") then
-			perk.icon = "mods/divine_right/files/perk_progress_bg.png"
-		end
-	elseif not ModDoesFileExist(perk.progress_icon or "") then
-		
+		perk.icon = "mods/divine_right/files/enemy_perk_background.png"
 	end
 end
 return perks
