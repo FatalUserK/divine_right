@@ -26,7 +26,7 @@ local function PickRandomPerk(perk_list, additional_context)
 
 	local valid_perks = {}
 	for _, entry in ipairs(perk_list) do
-		if (entry.condition and not entry:condition(context)) --if condition has failed (runs first for pre-processing purposes)
+		if (type(entry.condition) == "function" and not entry:condition(context)) --if condition has failed (runs first for pre-processing purposes)
 			or (context.current_perks[entry.id] and context.current_perks[entry.id] >= entry.max_stacks) --if current stacks is equal to or more than max stacks
 		then goto continue end
 		valid_perks[#valid_perks+1] = entry

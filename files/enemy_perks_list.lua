@@ -1,7 +1,7 @@
 ---@class (exact) enemy_perk
 ---@field id string Perk ID.
----@field ui_name string In-game name.
----@field description string In-game description.
+---@field perk_name string In-game name.
+---@field perk_desc string In-game description.
 ---@field icon string Path to 12x12 icon used in-world.
 ---@field weight number? Default 10.
 ---@field max_stacks number? Max number of times an enemy can roll this perk, infinite if nil.
@@ -18,10 +18,10 @@
 ---@type enemy_perk[]
 local perks = {
 	{
-		id = "critical_hit",
-		ui_name = "$divine_right.crit_plus",
-		description = "$divine_right.crit_plus_desc",
-		icon = "",
+		id = "critical_hit", --enemy can deal critical hits (need to fake it, player cannot be crit)
+		perk_name = "$divine_right.perkname_crit_plus",
+		perk_desc = "$divine_right.perkdesc_crit_plus",
+		icon = "mods/divine_right/files/icons_generic/critical_hit.png",
 		max_stacks = 3,
 		condition = nil,
 		game_effect = nil, --load game effect
@@ -32,10 +32,10 @@ local perks = {
 		end
 	},
 	{
-		id = "swapper",
-		icon = "",
-		ui_name = "Swapper",
-		description = "When damaged, swaps places with the attacker.",
+		id = "swapper", --when damanged, this enemy swaps places with the attacker
+		icon = "mods/divine_right/files/icons_generic/swapper.png",
+		perk_name = "$divine_right.perkname_swapper",
+		perk_desc = "$divine_right.perkdesc_swapper",
 		max_stacks = 1,
 		func = function(self, entity_id, copies, x, y)
 			EntityAddComponent2(entity_id, "LuaComponent", {
@@ -51,14 +51,71 @@ local perks = {
 			end
 		end
 	},
+	{
+		_disabled = true,
+		id = "recycle_hp", --damage taken is redistributed as healing for nearby allies
+		icon = "mods/divine_right/files/icons_generic/recycle_hp.png",
+		perk_name = "$divine_right.perkname_recycle_hp",
+		perk_desc = "$divine_right.perkdesc_recycle_hp",
+		weight = 0,
+	},
+	{
+		id = "bleed_lava", --enemy bleeds lava and is immune to fire and lava, but takes damage from water
+		icon = "mods/divine_right/files/icons_generic/bleed_lava.png",
+		perk_name = "$divine_right.perkname_bleed_lava",
+		perk_desc = "$divine_right.perkdesc_bleed_lava",
+		max_stacks = 1,
+		condition = function(self, context) --enemy must not already have natural lava blood or any other blood perk
+			return context.blood_material ~= "lava" and not context.blood_perk
+		end,
+		func = function(self, entity_id, copies, x, y)
+			local dmc = EntityGetFirstComponent(entity_id, "DamageModelComponent")
+			if not dmc then print("NO DMC FOUND TO MODIFY FOR BLEED_LAVA PERK, CHECK ENTITY " .. entity_id) return end
+
+			EntitySetDamageFromMaterial(entity_id, "lava", 0)
+			EntitySetDamageFromMaterial(entity_id, "water", 0.0005)
+			EntitySetDamageFromMaterial(entity_id, "mud", 0.0005)
+			EntitySetDamageFromMaterial(entity_id, "water_swamp", 0.0005)
+			EntitySetDamageFromMaterial(entity_id, "water_salt", 0.0005)
+			EntitySetDamageFromMaterial(entity_id, "swamp", 0.0005)
+			EntitySetDamageFromMaterial(entity_id, "snow", 0.0005)
+			EntitySetDamageFromMaterial(entity_id, "water_ice", 0.0005)
+
+			ComponentSetValue2(dmc, "blood_material", "lava")
+			ComponentSetValue2(dmc, "blood_spray_material", "lava")
+			ComponentSetValue2(dmc, "wet_status_effect_damage", "0.3")
+
+			ComponentObjectSetValue2(dmc, "damage_multipliers", "fire", 0)
+			ComponentObjectSetValue2(dmc, "damage_multipliers", "explosion",
+				math.min(ComponentObjectGetValue2(dmc, "damage_multipliers", "explosion"), .4)
+			)
+		end
+	},
+	{
+		_disabled = true,
+		id = "",
+		icon = "mods/divine_right/files/icons_generic/.png",
+		perk_name = "$divine_right.perkname_",
+		perk_desc = "$divine_right.perkdesc_",
+	},
 }
 
+--this is useful for testing, but should be removed before mod release
+local perks_to_remove = {}
 
 do_mod_appends("mods/divine_right/files/enemy_perks_list.lua")
-for _,perk in ipairs(perks) do
+for index, perk in ipairs(perks) do
 	perk.weight = perk.weight or 10
 	if not ModDoesFileExist(perk.icon or "") then
 		perk.icon = "mods/divine_right/files/enemy_perk_background.png"
 	end
+
+	-- if the condition is static and false, remove perk from list 
+	if perk._disabled then perks_to_remove[#perks_to_remove+1] = index end
 end
+
+for i = 1, #perks_to_remove do
+	table.remove(perks, perks_to_remove[#perks_to_remove-i+1])
+end
+
 return perks

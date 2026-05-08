@@ -3,12 +3,12 @@ local enforce_perk_unlock_state = true
 
 
 for index, perk in ipairs(perks) do
-	if perk.ui_name:sub(1,1) ~= "$" then print("PERK " .. perk.id .. " NOT ADDED TO PROGRESS, NAME IS NOT TRANSLATION") goto continue end
+	if perk.perk_name:sub(1,1) ~= "$" then print("PERK [" .. perk.id .. "] NOT ADDED TO PROGRESS, NAME IS NOT TRANSLATION") goto continue end
 	local perk_id = "divine_right_" .. perk.id
 	perk_list[#perk_list+1] = {
 		id = perk_id,
-		ui_name = perk.ui_name,
-		ui_description = perk.description,
+		ui_name = perk.perk_name,
+		ui_description = perk.perk_desc,
 		perk_icon = perk.icon,
 		ui_icon = perk.icon,
 		max_in_perk_pool = 0,
