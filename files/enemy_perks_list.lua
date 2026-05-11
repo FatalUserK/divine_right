@@ -52,7 +52,6 @@ local perks = {
 		end
 	},
 	{
-		_disabled = true,
 		id = "recycle_hp", --damage taken is redistributed as healing for nearby allies
 		icon = "mods/divine_right/files/icons_generic/recycle_hp.png",
 		perk_name = "$divine_right.perkname_recycle_hp",
@@ -89,7 +88,52 @@ local perks = {
 			ComponentObjectSetValue2(dmc, "damage_multipliers", "explosion",
 				math.min(ComponentObjectGetValue2(dmc, "damage_multipliers", "explosion"), .4)
 			)
+		end,
+		func_remove = function()
+
 		end
+	},
+	{
+		id = "gambling_debt",
+		icon = "mods/divine_right/files/icons_generic/gambling_debt.png",
+		perk_name = "$divine_right.perkname_gambling_debt",
+		perk_desc = "$divine_right.perkdesc_gambling_debt",
+	},
+	{
+		id = "extra_hp",
+		icon = "mods/divine_right/files/icons_generic/extra_hp.png",
+		perk_name = "$divine_right.perkname_extra_hp",
+		perk_desc = "$divine_right.perkdesc_extra_hp",
+	},
+	{
+		id = "martyr",
+		icon = "mods/divine_right/files/icons_generic/martyr.png",
+		perk_name = "$divine_right.perkname_martyr",
+		perk_desc = "$divine_right.perkdesc_martyr",
+	},
+	{
+		id = "diamond_nuggets",
+		icon = "mods/divine_right/files/icons_generic/diamond_nuggets.png",
+		perk_name = "$divine_right.perkname_diamond_nuggets",
+		perk_desc = "$divine_right.perkdesc_diamond_nuggets",
+	},
+	{
+		id = "wet_aura",
+		icon = "mods/divine_right/files/icons_generic/wet_aura.png",
+		perk_name = "$divine_right.perkname_wet_aura",
+		perk_desc = "$divine_right.perkdesc_wet_aura",
+	},
+	{
+		id = "berserker",
+		icon = "mods/divine_right/files/icons_generic/berserker.png",
+		perk_name = "$divine_right.perkname_berserker",
+		perk_desc = "$divine_right.perkdesc_berserker",
+	},
+	{
+		id = "unstable_mass",
+		icon = "mods/divine_right/files/icons_generic/unstable_mass.png",
+		perk_name = "$divine_right.perkname_unstable_mass",
+		perk_desc = "$divine_right.perkdesc_unstable_mass",
 	},
 	{
 		_disabled = true,
