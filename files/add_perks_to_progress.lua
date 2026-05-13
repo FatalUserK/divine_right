@@ -5,15 +5,23 @@ local enforce_perk_unlock_state = true
 for index, perk in ipairs(perks) do
 	if perk.perk_name:sub(1,1) ~= "$" then print("PERK [" .. perk.id .. "] NOT ADDED TO PROGRESS, NAME IS NOT TRANSLATION") goto continue end
 	local perk_id = "divine_right_" .. perk.id
-	perk_list[#perk_list+1] = {
-		id = perk_id,
-		ui_name = perk.perk_name,
-		ui_description = perk.perk_desc,
-		perk_icon = perk.icon,
-		ui_icon = perk.icon,
-		max_in_perk_pool = 0,
-		not_in_default_perk_pool = true,
-	}
+
+	RegisterPerk(
+		perk_id,
+		perk.perk_name,
+		perk.perk_desc,
+		perk.icon,
+		perk.icon
+	)
+	--perk_list[#perk_list+1] = {
+	--	id = perk_id,
+	--	ui_name = perk.perk_name,
+	--	ui_description = perk.perk_desc,
+	--	perk_icon = perk.icon,
+	--	ui_icon = perk.icon,
+	--	max_in_perk_pool = 0,
+	--	not_in_default_perk_pool = true,
+	--}
 
 	if enforce_perk_unlock_state ~= nil then
 		local flag_name_persistent = "perk_picked_" .. perk_id
