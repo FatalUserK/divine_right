@@ -55,7 +55,7 @@ local luacomp = nxml.new_element("LuaComponent", {
 	remove_after_executed = "1",
 })
 
-for index, target in ipairs(list) do
+for _,target in ipairs(list) do
 	for xml in nxml.edit_file(target) do
 		xml:add_child(luacomp)
 	end
