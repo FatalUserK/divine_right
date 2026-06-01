@@ -1,0 +1,13 @@
+<Materials>
+	<CellDataChild
+		_parent="gold_box2d"
+		name="divine_right_diamond_box2d"
+		ui_name="$mat_diamond"
+		gfx_glow_color="0xff85f7ff"
+		electrical_conductivity="0"
+		>
+		<Graphics
+			color = "ff85f7ff"
+		/>
+	</CellDataChild>
+</Materials>

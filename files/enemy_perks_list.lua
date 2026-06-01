@@ -19,9 +19,10 @@
 local perks = {
 	{
 		id = "critical_hit", --enemy can deal critical hits (need to fake it, player cannot be crit)
+		icon = "mods/divine_right/files/icons_generic/critical_hit.png",
 		perk_name = "$divine_right.perkname_crit_plus",
 		perk_desc = "$divine_right.perkdesc_crit_plus",
-		icon = "mods/divine_right/files/icons_generic/critical_hit.png",
+		weight = 0,
 		max_stacks = 3,
 		condition = nil,
 		game_effect = nil, --load game effect
@@ -36,6 +37,7 @@ local perks = {
 		icon = "mods/divine_right/files/icons_generic/swapper.png",
 		perk_name = "$divine_right.perkname_swapper",
 		perk_desc = "$divine_right.perkdesc_swapper",
+		weight = 0,
 		max_stacks = 1,
 		func = function(self, entity_id, copies, x, y)
 			EntityAddComponent2(entity_id, "LuaComponent", {
@@ -63,6 +65,7 @@ local perks = {
 		icon = "mods/divine_right/files/icons_generic/bleed_lava.png",
 		perk_name = "$divine_right.perkname_bleed_lava",
 		perk_desc = "$divine_right.perkdesc_bleed_lava",
+		weight = 0,
 		max_stacks = 1,
 		condition = function(self, context) --enemy must not already have natural lava blood or any other blood perk
 			return context.blood_material ~= "lava" and not context.blood_perk
