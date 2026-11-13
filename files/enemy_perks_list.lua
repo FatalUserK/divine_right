@@ -92,9 +92,7 @@ local perks = {
 				math.min(ComponentObjectGetValue2(dmc, "damage_multipliers", "explosion"), .4)
 			)
 		end,
-		func_remove = function()
-
-		end
+		--func_remove = function() end removability seems like a pain and is a lesser priority comparitively
 	},
 	{
 		id = "gambling_debt",
@@ -137,6 +135,26 @@ local perks = {
 		icon = "mods/divine_right/files/icons_generic/unstable_mass.png",
 		perk_name = "$divine_right.perkname_unstable_mass",
 		perk_desc = "$divine_right.perkdesc_unstable_mass",
+		func = function(self, entity_id, copies, x, y)
+			if copies == 0 then
+				EntityAddComponent2(entity_id, "LuaComponent", {
+					script_death = "mods/divine_right/files/perk_assets/unstable_mass/summon_giga.lua"
+				})
+			end
+		end
+	},
+	{
+		id = "add_skullflys_after_this_step",
+		icon = "mods/divine_right/files/icons_generic/add_skullflys_after_this_step.png",
+		perk_name = "$divine_right.perkname_add_skullflys_after_this_step",
+		perk_desc = "$divine_right.perkdesc_add_skullflys_after_this_step",
+		func = function(self, entity_id, copies, x, y)
+			if copies == 0 then
+				EntityAddComponent2(entity_id, "LuaComponent", {
+					script_death = "mods/divine_right/files/perk_assets/death_scripts/add_skullflys.lua"
+				})
+			end
+		end
 	},
 	{
 		_disabled = true,
